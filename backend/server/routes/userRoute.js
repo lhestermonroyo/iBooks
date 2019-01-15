@@ -10,8 +10,12 @@ router.get('/', (req, res) => {
   });
 });
 
+// router.get('/session' (req, res) => {
+  
+// })
+
 router.post('/login', (req, res, next) => {
-  console.log(req.body);
+    console.log(req.body);
   // const { username, password } = req.body;
   // console.log(req.body);
   // passport.authenticate("local", {
@@ -19,14 +23,14 @@ router.post('/login', (req, res, next) => {
   //   failureRedirect: 'api/users/login',
   //   failureFlash: true
   // })(req, res, next);
+    next()
   },
   passport.authenticate('local'), (req, res) => {
     console.log(req.user);
     let userInfo = {
       username: req.user.username
     };
-    // res.send(userInfo);
-    res.json(userInfo);
+    res.send(userInfo);
   }
 );
 
@@ -45,24 +49,14 @@ router.post('/add', (req, res) => {
           username: username,
           password: password
         });
-
-        bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) {
-              console.log(err);
-            }
-
-            newUser.password = hash;
-            newUser.save((err, savedUser) => {
-              if (err) {
-                console.log(err);
-              } 
-              else {
-                res.json(savedUser);
-              }
-            });
-          })
-        })
+        newUser.save((err, savedUser) => {
+          if (err) {
+            console.log(err);
+          } 
+          else {
+            res.json(savedUser);
+          }
+        });
       }
       else {
         res.json({error: 'E-mail already used in the system. Please try again.'});

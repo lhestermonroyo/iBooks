@@ -5,20 +5,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const mongoose = require("mongoose");
 const passport = require('./server/config/passport');
-const config = require("./server/config/database");
-
-mongoose.Promise = global.Promise;
-mongoose
-  .connect(
-    config.database,
-    { useNewUrlParser: true }
-  )
-  .then(() => {
-    console.log("Connected to database.");
-  })
-  .catch(err => {
-    console.log("Can't connect to database.", err);
-  });
+const dbConnection = require("./server/config/database");
 
 const app = express();
 const port = 4000;
@@ -30,6 +17,7 @@ app
   
 app.use(session({
     secret: 'fraggle-rock',
+    store: new MongoStore({mongooseConnection: dbConnection}),
     resave: false, 
     saveUninitialized: false
   })

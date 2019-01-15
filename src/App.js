@@ -25,13 +25,22 @@ class App extends React.Component {
     this.setState(userObject);
   }
   getUser() {
-    Axios.get('http://localhost:4000/api/user').then((result) => {
-      console.log('There is a user saved in the server session.');
+    Axios.get('http://localhost:4000/api/users/').then((result) => {
+      if (result.data.user) {
+        console.log('There is a user saved in the server session.');
+        console.log(result.data.user);
 
-      this.setState({
-        loggedIn: true,
-        username: result.data.user.username
-      });
+        this.setState({
+          loggedIn: true,
+          username: result.data.user.username
+        });
+      }
+      else {
+        this.setState({
+          loggedIn: false,
+          username: null
+        });
+      }
     }).catch((err) => {
       console.log(err);
       this.setState({
@@ -43,7 +52,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header ></Header>
+        <Header updateUser={this.updateUser} loggedIn={this.loggedIn}></Header>
         <Main></Main>
       </div>
     );

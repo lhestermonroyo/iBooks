@@ -30,12 +30,13 @@ class LogIn extends React.Component {
 
     let loginUser = {
       username: this.state.username,
-      password: this.state.password,
+      password: this.state.password
     }
 
     Axios
       .post('http://localhost:4000/api/users/login', loginUser)
       .then((result) => {
+        console.log(result);
         if (result.status === 200) {
           this.props.updateUser({
             loggedIn: true,
@@ -52,20 +53,18 @@ class LogIn extends React.Component {
             password: '',
             alertDisplay: true,
             alertType: 'danger',
-            alertMessage: result.data.error
+            alertMessage: "Incorrect username or password entry. Please try again."
           });
-          console.log(result.data.error);
         }
-        this.setState({
-          username: '',
-          password: ''
-        });
       })
       .catch((err) => {
         console.log(err);
         this.setState({
           username: '',
-          password: ''
+          password: '',
+          alertDisplay: true,
+          alertType: 'danger',
+          alertMessage: "Error. Unable to log in."
         });
       })
   }
