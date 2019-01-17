@@ -18,53 +18,51 @@ class Header extends React.Component {
     });
   }
   render() {
-    const {loggedIn, updateUser} = this.props;
-
     return (
       <Navbar color="light" light expand="md" className="mb-3">
         <Container>
           <NavbarBrand href="/"><i className="fa fa-book-reader fa-fw"></i> iBooks</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
-            {loggedIn ? (
-              <Collapse isOpen={this.state.isOpen} navbar>
-                <Nav className="ml-auto" navbar>
-                  <Link to="/" style={{textDecoration: "none"}}>
-                    <NavItem>
-                      <NavLink>Home</NavLink>
-                    </NavItem>
-                  </Link>
-                  <Link to="/profile" style={{textDecoration: "none"}}>
-                    <NavItem>
-                      <NavLink>{updateUser}</NavLink>
-                    </NavItem>
-                  </Link>
-                  <Link to="/logout" style={{textDecoration: "none"}}>
-                    <NavItem>
-                      <NavLink>Log Out</NavLink>
-                    </NavItem>
-                  </Link>
-                </Nav>
-              </Collapse>
-            ) : (
-              <Collapse isOpen={this.state.isOpen} navbar>
-                <Nav className="ml-auto" navbar>
-                  <Link to="/" style={{textDecoration: "none"}}>
-                    <NavItem>
-                      <NavLink>Home</NavLink>
-                    </NavItem>
-                  </Link>
-                  <Link to="/signup" style={{textDecoration: "none"}}>
-                    <NavItem>
-                      <NavLink>Sign Up</NavLink>
-                    </NavItem>
-                  </Link>
-                  <Link to="/login" style={{textDecoration: "none"}}>
-                    <NavItem>
-                      <NavLink>Log In</NavLink>
-                    </NavItem>
-                  </Link>
-                </Nav>
-              </Collapse>
+          {this.props.loggedIn ? (
+            <Collapse isOpen={this.state.isOpen} navbar>
+              <Nav className="ml-auto" navbar>
+                <Link to="/" style={{textDecoration: "none"}}>
+                  <NavItem>
+                    <NavLink>Home</NavLink>
+                  </NavItem>
+                </Link>
+                <Link to="/profile" style={{textDecoration: "none"}}>
+                  <NavItem>
+                    <NavLink>Hello, <strong>{this.props.username}</strong></NavLink>
+                  </NavItem>
+                </Link>
+                <Link to="/logout" style={{textDecoration: "none"}}>
+                  <NavItem>
+                    <NavLink>Log Out</NavLink>
+                  </NavItem>
+                </Link>
+              </Nav>
+            </Collapse>
+          ) : (
+            <Collapse isOpen={this.state.isOpen} navbar>
+              <Nav className="ml-auto" navbar>
+                <Link to="/" style={{textDecoration: "none"}}>
+                  <NavItem>
+                    <NavLink>Home</NavLink>
+                  </NavItem>
+                </Link>
+                <Link to="/signup" style={{textDecoration: "none"}}>
+                  <NavItem>
+                    <NavLink>Sign Up</NavLink>
+                  </NavItem>
+                </Link>
+                <Link to="/login" style={{textDecoration: "none"}}>
+                  <NavItem>
+                    <NavLink>Log In</NavLink>
+                  </NavItem>
+                </Link>
+              </Nav>
+            </Collapse>
           )}
         </Container>
       </Navbar>

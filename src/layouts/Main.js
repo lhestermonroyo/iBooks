@@ -5,6 +5,9 @@ import SignUp from '../components/SignUpPage';
 import LogIn from '../components/LogInPage';
 
 class Main extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <Switch>

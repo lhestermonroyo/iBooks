@@ -37,15 +37,19 @@ class LogIn extends React.Component {
       .post('http://localhost:4000/api/users/login', loginUser)
       .then((result) => {
         console.log(result);
-        if (result.status === 200) {
-          this.props.updateUser({
-            loggedIn: true,
-            username: result.data.username
-          });
+        if (!result.data.error) {
+          if (result.status === 200) {
+            console.log(result.data.username);
 
-          this.setState({
-            redirectTo: '/'
-          })
+            this.props.updateUser({
+              loggedIn: true,
+              username: result.data.username,
+            });
+  
+            this.setState({
+              redirectTo: '/'
+            })
+          }
         }
         else {
           this.setState({

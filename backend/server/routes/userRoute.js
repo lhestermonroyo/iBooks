@@ -15,22 +15,21 @@ router.get('/', (req, res) => {
 // })
 
 router.post('/login', (req, res, next) => {
-    console.log(req.body);
-  // const { username, password } = req.body;
-  // console.log(req.body);
-  // passport.authenticate("local", {
-  //   successRedirect: '/',
-  //   failureRedirect: 'api/users/login',
-  //   failureFlash: true
-  // })(req, res, next);
-    next()
+    console.log("Requested from the client:", req.body);
+    next();
   },
   passport.authenticate('local'), (req, res) => {
-    console.log(req.user);
+    console.log("Requested user:", req.user);
     let userInfo = {
-      username: req.user.username
+      username: req.user.username,
+      password: req.user.password
     };
-    res.send(userInfo);
+    // if(userInfo) {
+      res.send(userInfo);
+    // }
+    // else {
+    //   res.json({error: "Incorrect username or password entry. Please try again"});
+    // }
   }
 );
 
